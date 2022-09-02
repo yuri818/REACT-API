@@ -19,32 +19,29 @@
   <div id="root"></div>
   <script type="text/babel">
     function App(){
-      const [newsList, setNewsList] = React.useState([]);
+      const [newsList, setNewsList] = React.useState([]); //()안에는 {}객체, 상수, []배열 등이 올 수있음
       const requestOptions = {
         method: 'GET',
         redirect: 'follow'
       };
       React.useEffect(() => {
+        // ,뒤의 []배열에 값이 바뀔 때만 불러오라는 것
+        // fetch뒤에 then은 콜백이슈가 있으므로 외부(return부분)에서 사용시 주의 필요
         fetch("https://api.hnpwa.com/v0/news/1.json", requestOptions)
-          .then(response => response.json()) 
+          .then(response => response.json()) // 하나의 콜백
           .then(result => {
             console.log(result);
+            // result.map((news) => console.log(news.id));
             setNewsList(result);
           })
           .catch(error => console.log('error', error));
-      }, []);
+      }, []); // 두번째 파라미터로 배열을 꼭 줘야한다
 
       return (
         <>
-          <h1>해커뉴스 목록</h1>
-          <ul>
-          {newsList.map((news) => (
-            <div>
-              <div>{news.title}</div>
-              <div>{news.comments_count}</div>
-            </div>
-          ))}
-          </ul>
+          <h1>해커뉴스 목록</h1> {/* JSX */}
+          {/* map을 써서 list를 뿌려보자 */}
+          {newsList.map((news) => console.log(news.id+", "+news.title))} {/* JavaScript */}
         </>
       );
     }
