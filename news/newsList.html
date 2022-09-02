@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>뉴스 목록보기</title>
+</head>
+<body>
+  <script
+    crossorigin
+    src="https://unpkg.com/react@17/umd/react.development.js"
+  ></script>
+  <script
+    crossorigin
+    src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"
+  ></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <div id="root"></div>
+  <script type="text/babel">
+    //function random(){
+      const requestOptions = {
+        method: 'GET',
+        redirect: 'follow'
+      };
+      // ,뒤의 []배열에 값이 바뀔 때만 불러오라는 것
+        fetch("https://api.hnpwa.com/v0/news/1.json", requestOptions)
+          .then(response => response.json()) // 하나의 콜백
+          .then(result => {
+            console.log(result);
+          })
+          .catch(error => console.log('error', error));  //에러가 발생했을 때
+      const element = (
+        <>
+          <h1>해커뉴스 목록</h1>
+        </>
+      );
+      ReactDOM.render(element, document.getElementById('root'));
+    //}
+    // random();
+  </script>
+</body>
+</html>
